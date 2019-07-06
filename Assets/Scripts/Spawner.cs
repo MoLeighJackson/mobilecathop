@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		ResetDelay ();
 		StartCoroutine (ObstacleGenerator ());
 	}
 
@@ -18,16 +18,22 @@ public class Spawner : MonoBehaviour {
 
 		yield return new WaitForSeconds (delay);
 
+		// make sure the spawner is active
 		if (active) {
 			var newTransform = transform;
 
-			Instantiate(prefabs[Random.Range(0, prefabs.Length)], newTransform.position, Quaternion.identity);
-		
+			GameObjectUtil.Instantiate(prefabs[Random.Range(0, prefabs.Length)], newTransform.position);
+			ResetDelay ();
 		}
 
 		StartCoroutine (ObstacleGenerator ());
 
 	}
 
+	// reset delay to a random value
+	void ResetDelay() {
+		delay = Random.Range (delayRange.x, delayRange.y);
+		
+	}
 
 }
