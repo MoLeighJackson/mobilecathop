@@ -5,6 +5,7 @@ public class Spawner : MonoBehaviour {
 
 	public GameObject[] prefabs;
 	public float delay = 2.0f;
+	// determine if spawner is already active
 	public bool active = true;
 	public Vector2 delayRange = new Vector2(1, 2);
 
