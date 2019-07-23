@@ -23,6 +23,7 @@ public class InputState : MonoBehaviour {
 	
 	void Update () {
 		actionButton = CrossPlatformInputManager.GetButtonDown ("Jump");
+
 	}
 
 
