@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject playerPrefab;
 
+
 	//properties that don't show up in inspector
 	private GameObject player;
 	private GameObject floor;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour {
 		// deactivate the spawner
 		spawner.active = false;
 
+
 		ResetGame ();
 	}
 
@@ -41,21 +43,28 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		
 	}
+		
+
 
 	void OnPlayerKilled() {
+
+			
+		var playerDestroyScript = player.GetComponent<DestroyOffScreen> ();
+		playerDestroyScript.DestroyCallback -= OnPlayerKilled;
+		// change player's velocity after player dies so that player drops from top of screen on game reset
+		player.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 		spawner.active = false;
+
+		ResetGame ();
 
 	}
 
 	void ResetGame() {
-	
-		spawner.active = true;
+	 spawner.active = true;
 		player = GameObjectUtil.Instantiate (playerPrefab, new Vector3 (0, (Screen.height / PixelPerfectCamera.pixelsToUnits) / 2, 0));
 
 		var playerDestroyScript = player.GetComponent<DestroyOffScreen> ();
 		playerDestroyScript.DestroyCallback += OnPlayerKilled;
 	}
-
-
 
 }
